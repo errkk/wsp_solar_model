@@ -15,7 +15,10 @@
     <!-- endbuild -->
   </head>
   <body ng-app="wsp.app">
-
+    <div class="container">
+        <div ui-view="graph" class="UIGraphView"></div>
+        <div ui-view="model" class="UIModelView"></div>
+    </div>
     <!-- Run grunt deps to get stuff linked up in here -->
     <!-- bower:js -->
     <script src="bower_components/threejs/build/three.js"></script>
@@ -25,6 +28,9 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
 
+    <script src="js/directives.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
     <script src="js/app.js"></script>
 
 </body>

@@ -1,6 +1,9 @@
 angular.module('wsp.app', [
        'ngAnimate',
-       'ui.router'
+       'ui.router',
+       'wsp.app.services',
+       'wsp.app.controllers',
+       'wsp.app.directives'
        ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -9,13 +12,18 @@ angular.module('wsp.app', [
         .state('app', {
             resolve: {
             },
-            abstract: true,
             url: "/",
             views: {
-                'slide': {
-                    template: '<ui-view class="Slide-container--parent" />',
-                    controller: 'SlideCtrl'
+                'graph': {
+                    templateUrl: 'templates/graph-view.html',
+                    controller: 'GraphCtrl'
+                },
+                'model': {
+                    templateUrl: 'templates/model-view.html',
+                    controller: 'ModelCtrl'
                 }
             }
         });
+
+        $urlRouterProvider.otherwise('/');
     });

@@ -1,0 +1,24 @@
+.container {
+    background: orange;
+    display: flex;
+    height: 500px;
+}
+.UIModelView,
+.UIGraphView {
+    background: #fff;
+    flex: 1;
+    height: 100%;
+}
+
+.UIGraphView {
+    background: grey;
+}
+
+.UIModelView {
+    position: relative;
+}
+
+wsp-three-scene {
+    width: 500px;
+    height: 500px;
+}

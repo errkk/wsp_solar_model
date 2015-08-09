@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "main.scss",
+	"sources": [
+		"../sass/main.scss",
+		"../sass/partials/_variables.scss",
+		"../sass/partials/_layout.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "AEAA,UAAU,CAAC,EACP,UAAU,EAAE,MAAO,EACnB,OAAO,EAAE,IAAK,EACd,MAAM,EAAE,KAAM,GAHN;;AAMZ,YAAY,EAAE,YAAY,CAAb,EACT,UAAU,EAAE,IAAK,EACjB,IAAI,EAAE,CAAE,EACR,MAAM,EAAE,IAAK,GAHH;;AAMd,YAAY,CAAC,EACT,UAAU,EAAE,IAAK,GADP;;AAId,YAAY,CAAC,EACT,QAAQ,EAAE,QAAS,GADT;;AAId,eAAe,CAAC,EACZ,KAAK,EAAE,KAAM,EACb,MAAM,EAAE,KAAM,GAFD;;AFjBjB,IAAI,CAAC,EACD,UAAU,EAAE,KAAM,GADhB",
+	"names": []
+}
