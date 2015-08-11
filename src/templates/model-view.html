@@ -1,5 +1,6 @@
-<h1>Model</h1>
-<wsp-three-scene datetime="datetime" axis="axis"></wsp-three-scene>
-<button ng-click="axis='top'">Top</button>
-<button ng-click="axis='side'">Side</button>
-<button ng-click="axis='camera'">Camera</button>
+<h1>Model {{$state.params.orientation}}</h1>
+<wsp-three-scene datetime="datetime" axis="$state.params.orientation"></wsp-three-scene>
+<button ui-sref="app.orientation({orientation: 'top'})">Top</button>
+<button ui-sref="app.orientation({orientation: 'side'})">Side</button>
+<button ui-sref="app.orientation({orientation: 'camera'})">Camera</button>
+<button ui-sref="app.orientation({orientation: 'corner'})">Corner</button>

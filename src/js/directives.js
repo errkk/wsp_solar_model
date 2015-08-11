@@ -117,8 +117,8 @@ angular.module('wsp.app.directives', [])
                     var material = new THREE.MeshLambertMaterial( { color: 0x0000f0 } );
                     var panel = new THREE.Mesh( panelGeo, material );
                     panel.position.z = 2;
-                    panel.rotation.z = 45;
-                    panel.rotation.x = 2 * Math.PI * 2 /180;
+                    //panel.rotation.z = 45;
+                    //panel.rotation.x = 2 * Math.PI * 2 /180;
                     panel.rotation.y = 2 * Math.PI * 2 /180;
                     scene.add(panel);
                 }
@@ -166,19 +166,23 @@ angular.module('wsp.app.directives', [])
                 }
                 render();
 
-                scope.$watch(attr.axis, function(value) {
+                scope.$watch('axis', function(value) {
                     console.log('axis', value);
                     switch (value) {
                         case 'camera':
-                            camera.position.set(0, -10, 8);
+                            camera.position.set(0, -10, 10);
                             render();
                             break;
                         case 'top':
-                            camera.position.set(0, 0, 8);
+                            camera.position.set(0, 0, 12);
                             render();
                             break;
                         case 'side':
-                            camera.position.set(0, 12, 0);
+                            camera.position.set(0, 12, -0.1);
+                            render();
+                            break;
+                        case 'corner':
+                            camera.position.set(12, 12, 0.1);
                             render();
                             break;
                     }
