@@ -118,9 +118,15 @@ angular.module('wsp.app.directives', [])
                     var panel = new THREE.Mesh(panelGeo, material);
 
                     panel.position.z = 2;
-                    //panel.rotation.z = 45;
-                    //panel.rotation.x = 2 * Math.PI * 2 /180;
-                    panel.rotation.y = 2 * Math.PI * 2 /180;
+
+                    //panel.rotation.z = Math.PI / 4;
+                    //panel.rotation.y = Math.PI / 4;
+                    var axis = new THREE.Vector3(0, 0, 1); //blue
+                    panel.rotateOnAxis(axis, Math.PI / 4);
+
+                    var axis = new THREE.Vector3(1, 1, 0); //redy-green
+                    panel.rotateOnAxis(axis, Math.PI / 2 / 180 * 20);
+
                     scene.add(panel);
                 }
                 function createFloor() {
