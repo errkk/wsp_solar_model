@@ -4,9 +4,9 @@ angular.module('wsp.app.controllers', [])
         console.log('GraphCtrl');
     })
 
-    .controller('ModelCtrl', function($scope, $stateParams) {
+    .controller('ModelCtrl', function($scope, $stateParams, $state) {
         console.log('ModelCtrl');
         $scope.datetime = new Date();
-        $scope.axis = 'camera';
+        $scope.$state = $state;
     });
 
