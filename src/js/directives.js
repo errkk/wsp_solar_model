@@ -107,19 +107,26 @@ angular.module('wsp.app.directives', [])
                 }
                 function addModel() {
                     var roofGeo = new THREE.BoxGeometry(10, 10, 2);
-                    var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
+                    var material = new THREE.MeshLambertMaterial({color: greyDark});
                     var roof = new THREE.Mesh(roofGeo, material);
 
                     roofGeo.receiveShadow = true;
                     scene.add(roof);
 
                     var panelGeo = new THREE.BoxGeometry(7, 3, 0.5);
-                    var material = new THREE.MeshLambertMaterial( { color: 0x0000f0 } );
-                    var panel = new THREE.Mesh( panelGeo, material );
+                    var material = new THREE.MeshLambertMaterial({color: greenDark});
+                    var panel = new THREE.Mesh(panelGeo, material);
+
                     panel.position.z = 2;
-                    //panel.rotation.z = 45;
-                    //panel.rotation.x = 2 * Math.PI * 2 /180;
-                    panel.rotation.y = 2 * Math.PI * 2 /180;
+
+                    //panel.rotation.z = Math.PI / 4;
+                    //panel.rotation.y = Math.PI / 4;
+                    var axis = new THREE.Vector3(0, 0, 1); //blue
+                    panel.rotateOnAxis(axis, Math.PI / 4);
+
+                    var axis = new THREE.Vector3(1, 1, 0); //redy-green
+                    panel.rotateOnAxis(axis, Math.PI / 2 / 180 * 20);
+
                     scene.add(panel);
                 }
                 function createFloor() {
