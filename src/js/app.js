@@ -35,5 +35,5 @@ angular.module('wsp.app', [
             }
         });
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/o/top/');
     });

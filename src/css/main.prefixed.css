@@ -1,4 +1,4 @@
-.container { background: orange; display: -webkit-flex; display: -ms-flexbox; display: flex; height: 500px; }
+.container { background: orange; display: -webkit-flex; display: -ms-flexbox; display: flex; height: 600px; }
 
 .UIModelView, .UIGraphView { background: #fff; -webkit-flex: 1; -ms-flex: 1; flex: 1; height: 100%; }
 
