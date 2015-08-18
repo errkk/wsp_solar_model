@@ -26,7 +26,7 @@ angular.module('wsp.app', [
             }
         })
         .state('app.orientation', {
-            url: "o/:orientation",
+            url: "o/:orientation/d/:datetime",
             views: {
                 'model': {
                     templateUrl: 'templates/model-view.html',
@@ -35,5 +35,5 @@ angular.module('wsp.app', [
             }
         });
 
-        $urlRouterProvider.otherwise('/o/top/');
+        $urlRouterProvider.otherwise('/o/top/d/2015-01-01+00:00:00');
     });

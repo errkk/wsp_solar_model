@@ -6,7 +6,9 @@ angular.module('wsp.app.controllers', [])
 
     .controller('ModelCtrl', function($scope, $stateParams, $state) {
         console.log('ModelCtrl');
-        $scope.datetime = new Date();
+        $scope.$on("$stateChangeSuccess", function() {
+            $scope.datetime = new Date($state.params.datetime.replace('+', ' '));
+        });
         $scope.$state = $state;
     });
 

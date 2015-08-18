@@ -1,8 +1,8 @@
 angular.module('wsp.app.directives', [])
 
-    .constant('SUN_DISTANCE', 200)
+    .constant('SUN_DISTANCE', 50)
 
-    .factory('wspAngles2Cartesian', function(SUN_DISTANCE) {
+    .factory('angles2cartesian', function(SUN_DISTANCE) {
         return function angles2cartesian(azimuth, altitude) {
             var x, y, z, radius;
 
@@ -15,14 +15,14 @@ angular.module('wsp.app.directives', [])
         };
     })
 
-    .directive('wspThreeScene', function($rootScope) {
+    .directive('wspThreeScene', function($rootScope, angles2cartesian) {
         return {
             restrict: 'E',
             scope: {
                 datetime: '=datetime',
                 axis: '='
             },
-            link: function(scope, elem, attr) {
+            link: function(scope, elem, attr, ang) {
                 var SUN_DISTANCE = 400;
                 var CAMERA_DISTANCE = 250;
                 var ZOOM = 15;
@@ -37,6 +37,7 @@ angular.module('wsp.app.directives', [])
                 var blue = 0x4FC1E9;
                 var blueDark = 0x3BAFDA;
 
+                var sun;
                 var camera;
                 var scene;
                 var renderer;
@@ -110,7 +111,8 @@ angular.module('wsp.app.directives', [])
                     var material = new THREE.MeshLambertMaterial({color: greyDark});
                     var roof = new THREE.Mesh(roofGeo, material);
 
-                    roofGeo.receiveShadow = true;
+                    roof.castShadow = true;
+                    roof.receiveShadow = true;
                     scene.add(roof);
 
                     var panelGeo = new THREE.BoxGeometry(7, 3, 0.5);
@@ -118,6 +120,8 @@ angular.module('wsp.app.directives', [])
                     var panel = new THREE.Mesh(panelGeo, material);
 
                     panel.position.z = 2;
+                    panel.castShadow = true;
+                    panel.receiveShadow = true;
 
                     // Rotation to the south
                     var axis = new THREE.Vector3(0, 0, 1);
@@ -135,7 +139,7 @@ angular.module('wsp.app.directives', [])
                     var planeMat = new THREE.MeshLambertMaterial({color: 0xffffff});
 
                     var plane = new THREE.Mesh(planeGeo, planeMat);
-                    plane.side = THREE.DoubleSide;
+                    //plane.side = THREE.DoubleSide;
                     plane.receiveShadow = true;
 
                     // rotate it to correct position
@@ -143,16 +147,29 @@ angular.module('wsp.app.directives', [])
                     scene.add(plane);
                 }
                 function addSun() {
-                    var sun = new THREE.SpotLight(0xFFFFFF);
+                    sun = new THREE.SpotLight(yellow);
                     scene.add(sun);
                     sun.castShadow = true;
-                    sun.shadowDarkness = 0.4;
-                    sun.shadowCameraVisible = false;
+                    sun.shadowDarkness = 1;
                     sun.shadowMapWidth = width * 2;
                     sun.shadowMapHeight = height * 2;
-                    sun.position.x = 100;
-                    sun.position.y = 100;
-                    sun.position.z = 100;
+                    sun.shadowCameraVisible = true;
+                    sun.angle = Math.PI / 4;
+                    updateSunPosition();
+                }
+
+                function updateSunPosition(date) {
+                    var dt = date || new Date();
+                    var centre = this.centre || [-0.0668529, 51.5127414];
+                    var pos = SunCalc.getPosition(dt, centre[1], centre[0]);
+                    var coords = angles2cartesian(pos.azimuth, pos.altitude);
+
+                    sun.position.x = coords[0];
+                    sun.position.y = coords[1];
+                    sun.position.z = coords[2];
+                    console.log(coords);
+
+                    render();
                 }
 
 
@@ -165,16 +182,12 @@ angular.module('wsp.app.directives', [])
 
                 function render() {
                     var timer = Date.now() * 0.0005;
-                    //camera.position.x = Math.cos(timer) * 10;
-                    //camera.position.y = Math.sin(timer) * 10;
-                    //camera.position.z = 4;
                     camera.lookAt(scene.position);
                     renderer.render(scene, camera);
                 }
                 render();
 
                 scope.$watch('axis', function(value) {
-                    console.log('axis', value);
                     switch (value) {
                         case 'camera':
                             camera.position.set(0, -10, 10);
@@ -193,6 +206,11 @@ angular.module('wsp.app.directives', [])
                             render();
                             break;
                     }
+                });
+
+                // Update sun position when the date changes
+                scope.$watch(attr.datetime, function(value) {
+                    updateSunPosition(value);
                 });
             }
         }
